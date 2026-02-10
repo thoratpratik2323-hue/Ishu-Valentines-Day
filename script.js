@@ -51,6 +51,44 @@ document.addEventListener('DOMContentLoaded', () => {
         acceptBtn.textContent = "Thank You! I Love You! ❤️";
         acceptBtn.style.background = "#00e676";
         acceptBtn.disabled = true;
+
+        // Show Video Message after 5 seconds
+        setTimeout(() => {
+            const videoContainer = document.getElementById('videoContainer');
+            const myVideo = document.getElementById('myVideo');
+
+            videoContainer.classList.remove('hidden');
+            // Force reflow for opacity transition
+            void videoContainer.offsetWidth;
+            videoContainer.classList.add('show');
+
+            // Pause BG Music
+            bgMusic.pause();
+            musicBtn.textContent = "🎵 Play Music";
+            isPlaying = false;
+
+            // Play Video
+            myVideo.play().catch(e => console.log("Video Play Error", e));
+        }, 5000);
+    });
+
+    // --- Close Video Logic ---
+    const closeVideoBtn = document.getElementById('closeVideoBtn');
+    const videoContainer = document.getElementById('videoContainer');
+    const myVideo = document.getElementById('myVideo');
+
+    closeVideoBtn.addEventListener('click', () => {
+        myVideo.pause();
+        videoContainer.classList.remove('show');
+        setTimeout(() => {
+            videoContainer.classList.add('hidden');
+        }, 1000);
+
+        // Resume BG Music (Optional)
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicBtn.textContent = "⏸️ Pause Music";
+        });
     });
 
     // --- Music Button ---
