@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? ❤️</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Stars Background -->
+    <div id="stars"></div>
+
+    <!-- Music Control -->
+    <button id="musicBtn">🎵 Play Music</button>
+    <audio id="bgMusic" loop>
+        <source src="song.webm" type="audio/webm">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container">
+
+        <!-- The Magical Box -->
+        <div class="gift-box" id="giftBox">
+            <div class="lid" id="boxLid">
+                <div class="lid-top"></div>
+                <div class="lid-bow"></div>
+            </div>
+            <div class="box-body">
+                <div class="box-front">Tap to Open</div>
+                <div class="box-left"></div>
+                <div class="box-right"></div>
+                <div class="box-back"></div>
+            </div>
+        </div>
+
+        <!-- The Surprise (Hidden Initially) -->
+        <div class="surprise-content" id="surprise">
+            <h1 class="main-title">Happy Valentine's Day!</h1>
+            <h2 class="sub-title">To My Dearest Ishu ❤️</h2>
+
+            <div class="ring-container">
+                <div class="ring">
+                    <div class="diamond">💎</div>
+                    <div class="band"></div>
+                </div>
+            </div>
+
+            <p class="love-message">
+                "From distances apart to heart-to-heart,<br>
+                You are my forever Valentine.<br>
+                I promise to love you more each day!"
+            </p>
+
+            <button id="acceptBtn">YES, I Will! 💍</button>
+        </div>
+
+        <!-- Fireworks Canvas -->
+        <canvas id="fireworks"></canvas>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

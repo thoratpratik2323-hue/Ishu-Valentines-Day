@@ -1,0 +1,361 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    /* Starry Night */
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+/* Stars Background */
+#stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(1px 1px at 10px 10px, #fff, transparent),
+        radial-gradient(1px 1px at 50px 80px, #fff, transparent),
+        radial-gradient(2px 2px at 150px 200px, #fff, transparent),
+        radial-gradient(1px 1px at 300px 50px, #fff, transparent);
+    background-size: 400px 400px;
+    opacity: 0.3;
+    animation: twinkle 10s infinite linear;
+}
+
+@keyframes twinkle {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-400px);
+    }
+}
+
+/* Gift Box Container in 3D */
+.gift-box {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 1s ease-in-out;
+    animation: float 3s ease-in-out infinite;
+    z-index: 10;
+}
+
+.gift-box:hover {
+    transform: scale(1.05) rotateY(10deg);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateY(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotateY(5deg);
+    }
+}
+
+/* Box Body Parts */
+.box-body {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+.box-front,
+.box-back,
+.box-left,
+.box-right {
+    width: 200px;
+    height: 200px;
+    background: #ff4081;
+    /* Pink */
+    position: absolute;
+    border: 2px solid #c2185b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    /* Gold Text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.box-front {
+    transform: translateZ(100px);
+}
+
+.box-back {
+    transform: translateZ(-100px) rotateY(180deg);
+}
+
+.box-left {
+    transform: translateX(-100px) rotateY(-90deg);
+}
+
+.box-right {
+    transform: translateX(100px) rotateY(90deg);
+}
+
+/* Lid (Top Part) */
+.lid {
+    width: 210px;
+    height: 50px;
+    background: #d81b60;
+    /* Darker Pink */
+    position: absolute;
+    top: -50px;
+    /* Sit on top */
+    left: -5px;
+    transform-style: preserve-3d;
+    transform-origin: bottom;
+    /* Hinge to open */
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 20;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.lid-top {
+    width: 210px;
+    height: 210px;
+    background: #ec407a;
+    position: absolute;
+    top: -210px;
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+}
+
+/* Ribbons and Bow */
+.box-front::before,
+.box-back::before,
+.lid-top::before {
+    content: '';
+    position: absolute;
+    background: #ffd700;
+    /* Gold Ribbon */
+}
+
+.box-front::before,
+.box-back::before {
+    width: 30px;
+    height: 100%;
+    left: 85px;
+    /* Center */
+}
+
+.lid-top::before {
+    width: 30px;
+    height: 100%;
+    left: 90px;
+}
+
+.lid-top::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    /* Cross ribbon */
+    height: 30px;
+    top: 90px;
+    background: #ffd700;
+}
+
+.lid-bow {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #ffd700 0%, #ffca28 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: -30px;
+    left: 75px;
+    z-index: 25;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Opening Animation Triggered via JS Class */
+.gift-box.open .lid {
+    transform: rotateX(110deg) translateY(-100px);
+    /* Flip Open */
+}
+
+.gift-box.open {
+    animation: none;
+    /* Stop floating */
+    transform: translateY(200px) scale(0.5);
+    /* Move down and shrink slightly */
+    opacity: 0;
+    /* Fade out box eventually */
+    transition: all 1s ease-in-out 0.5s;
+    /* Delay fade */
+}
+
+
+/* Surprise Content (Hidden Initially) */
+.surprise-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    text-align: center;
+    color: white;
+    z-index: 50;
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 90%;
+    max-width: 600px;
+}
+
+.surprise-content.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #ff4081;
+    margin: 0;
+    text-shadow: 0 0 10px #ff80ab;
+    animation: pulseTitle 2s infinite;
+}
+
+.sub-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #ffd700;
+    margin-bottom: 30px;
+}
+
+@keyframes pulseTitle {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* The Ring Animation */
+.ring-container {
+    margin: 40px auto;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    animation: floatRing 3s ease-in-out infinite;
+}
+
+.diamond {
+    font-size: 4rem;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    animation: sparkle 1.5s infinite alternate;
+}
+
+.band {
+    width: 80px;
+    height: 80px;
+    border: 8px solid #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ffd700, inset 0 0 20px #ffd700;
+}
+
+@keyframes sparkle {
+    from {
+        filter: drop-shadow(0 0 5px white);
+        transform: scale(1);
+    }
+
+    to {
+        filter: drop-shadow(0 0 20px white);
+        transform: scale(1.2);
+    }
+}
+
+@keyframes floatRing {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+
+.love-message {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+#acceptBtn {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #ff4081, #f50057);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(245, 0, 87, 0.4);
+    transition: transform 0.2s;
+    font-family: 'Dancing Script', cursive;
+}
+
+#acceptBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(245, 0, 87, 0.6);
+}
+
+/* Fireworks Canvas */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Music Btn */
+#musicBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 200;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
