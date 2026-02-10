@@ -20,81 +20,77 @@
     <button id="musicBtn">🎵 Play Music</button>
     <audio id="bgMusic" loop>
         <source src="song.webm" type="audio/webm">
-        Your browser does not support the audio element.
     </audio>
 
-    <div class="container">
+    <!-- The Magical Box -->
+    <div class="gift-box" id="giftBox">
+        <div class="lid" id="boxLid">
+            <div class="lid-top"></div>
+            <div class="lid-bow"></div>
+        </div>
+        <div class="box-body">
+            <div class="box-front">Tap to Open</div>
+            <div class="box-left"></div>
+            <div class="box-right"></div>
+            <div class="box-back"></div>
+        </div>
+    </div>
 
-        <!-- The Magical Box -->
-        <div class="gift-box" id="giftBox">
-            <div class="lid" id="boxLid">
-                <div class="lid-top"></div>
-                <div class="lid-bow"></div>
-            </div>
-            <div class="box-body">
-                <div class="box-front">Tap to Open</div>
-                <div class="box-left"></div>
-                <div class="box-right"></div>
-                <div class="box-back"></div>
+    <!-- The Surprise (Hidden Initially) -->
+    <div class="surprise-content" id="surprise">
+        <h1 class="main-title">Happy Valentine's Day!</h1>
+        <h2 class="sub-title">To My Dearest Ishu ❤️</h2>
+
+        <div class="ring-container">
+            <div class="ring">
+                <div class="diamond">💎</div>
+                <div class="band"></div>
             </div>
         </div>
 
-        <!-- The Surprise (Hidden Initially) -->
-        <div class="surprise-content" id="surprise">
-            <h1 class="main-title">Happy Valentine's Day!</h1>
-            <h2 class="sub-title">To My Dearest Ishu ❤️</h2>
+        <p class="love-message">
+            "From distances apart to heart-to-heart,<br>
+            You are my forever Valentine.<br>
+            I promise to love you more each day!"
+        </p>
 
-            <div class="ring-container">
-                <div class="ring">
-                    <div class="diamond">💎</div>
-                    <div class="band"></div>
-                </div>
-            </div>
+        <button id="acceptBtn">YES, I Will! 💍</button>
+    </div>
 
-            <p class="love-message">
-                "From distances apart to heart-to-heart,<br>
-                You are my forever Valentine.<br>
-                I promise to love you more each day!"
-            </p>
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworks"></canvas>
 
-            <button id="acceptBtn">YES, I Will! 💍</button>
+    <!-- Video Message Overlay -->
+    <div id="videoContainer" class="hidden">
+        <div class="video-box">
+            <video id="myVideo" controls>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+            <button id="closeVideoBtn">Close & Return to Love ❤️</button>
         </div>
+    </div>
 
-        <!-- Fireworks Canvas -->
-        <canvas id="fireworks"></canvas>
-
-        <!-- Video Message Overlay -->
-        <div id="videoContainer" class="hidden">
-            <div class="video-box">
-                <video id="myVideo" controls>
-                    <source src="video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <button id="closeVideoBtn">Close & Return to Love ❤️</button>
+    <!-- Proposal Screen -->
+    <div id="proposalScreen" class="hidden">
+        <div class="proposal-content">
+            <div class="big-ring">💍</div>
+            <h1 class="proposal-title">Ishu...</h1>
+            <h2 class="proposal-question">Will You Be Mine Forever?</h2>
+            <p class="proposal-text">From our first talk to today,<br>every moment with you has been magical.<br>I want
+                to spend my whole life making you smile. ❤️</p>
+            <div class="proposal-buttons">
+                <button id="yesBtn" class="yes-btn">YES! 💍❤️</button>
+                <button id="noBtn" class="no-btn">No 😢</button>
             </div>
-        </div>
-
-        <!-- Proposal Screen -->
-        <div id="proposalScreen" class="hidden">
-            <div class="proposal-content">
-                <div class="big-ring">💍</div>
-                <h1 class="proposal-title">Ishu...</h1>
-                <h2 class="proposal-question">Will You Be Mine Forever?</h2>
-                <p class="proposal-text">From our first talk to today,<br>every moment with you has been magical.<br>I
-                    want to spend my whole life making you smile. ❤️</p>
-                <div class="proposal-buttons">
-                    <button id="yesBtn" class="yes-btn">YES! 💍❤️</button>
-                    <button id="noBtn" class="no-btn">No 😢</button>
-                </div>
-                <div id="yesMessage" class="hidden">
-                    <h1 class="celebration-text">She Said YES! 🎉💍❤️</h1>
-                    <p>Forever & Always</p>
-                    <p>Pratik ❤️ Ishu</p>
-                </div>
+            <div id="yesMessage" class="hidden">
+                <h1 class="celebration-text">She Said YES! 🎉💍❤️</h1>
+                <p>Forever & Always</p>
+                <p>Pratik ❤️ Ishu</p>
             </div>
         </div>
+    </div>
 
-        <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

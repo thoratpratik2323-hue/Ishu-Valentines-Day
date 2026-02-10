@@ -12,84 +12,74 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- State ---
     let isBoxOpen = false;
     let isPlaying = false;
-    let fireworkTimer;
+    let fireworksStarted = false;
+
+    // --- Canvas Setup ---
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particles = [];
 
     // --- Box Open Logic ---
     giftBox.addEventListener('click', () => {
         if (isBoxOpen) return;
         isBoxOpen = true;
 
-        // 1. Play Music (if not already)
+        // Play Music
         bgMusic.play().then(() => {
             isPlaying = true;
             musicBtn.textContent = "⏸️ Pause Music";
         }).catch(e => console.log("Audio play blocked", e));
 
-        // 2. Open Animation
-        giftBox.classList.add('open'); // CSS does lid rotate & box move down
+        // Open Animation
+        giftBox.classList.add('open');
 
-        // 3. Show Surprise after delay
+        // Show Surprise after delay
         setTimeout(() => {
-            giftBox.style.display = 'none'; // Hide box completely
-            surpriseContent.style.opacity = '1';
+            giftBox.style.display = 'none';
             surpriseContent.classList.add('show');
-
-            // Start Fireworks Loop
-            // startFireworks(); // REMOVED: Wait for click
         }, 1500);
     });
 
     // --- Accept Button Logic ---
     acceptBtn.addEventListener('click', () => {
-        startFireworks(); // START HERE
-
-        // Massive Fireworks Finale
-        for (let i = 0; i < 30; i++) {
-            setTimeout(() => createFirework(window.innerWidth / 2, window.innerHeight / 2), i * 100);
-        }
+        startFireworks();
 
         acceptBtn.textContent = "Thank You! I Love You! ❤️";
         acceptBtn.style.background = "#00e676";
         acceptBtn.disabled = true;
 
-        // Show Video Message after 5 seconds
+        // Show Video after 5 seconds
         setTimeout(() => {
             const videoContainer = document.getElementById('videoContainer');
             const myVideo = document.getElementById('myVideo');
 
             videoContainer.classList.remove('hidden');
-            // Force reflow for opacity transition
             void videoContainer.offsetWidth;
             videoContainer.classList.add('show');
 
-            // Pause BG Music
             bgMusic.pause();
             musicBtn.textContent = "🎵 Play Music";
             isPlaying = false;
 
-            // Play Video
             myVideo.play().catch(e => console.log("Video Play Error", e));
         }, 5000);
     });
 
-    // --- Close Video Logic ---
+    // --- Close Video -> Proposal ---
     const closeVideoBtn = document.getElementById('closeVideoBtn');
-    const videoContainer = document.getElementById('videoContainer');
-    const myVideo = document.getElementById('myVideo');
-
     closeVideoBtn.addEventListener('click', () => {
+        const videoContainer = document.getElementById('videoContainer');
+        const myVideo = document.getElementById('myVideo');
         myVideo.pause();
         videoContainer.classList.remove('show');
         setTimeout(() => {
             videoContainer.classList.add('hidden');
-
-            // Show Proposal Screen!
+            // Show Proposal!
             const proposalScreen = document.getElementById('proposalScreen');
             proposalScreen.classList.remove('hidden');
             proposalScreen.style.display = 'flex';
-        }, 1000);
+        }, 500);
 
-        // Resume BG Music
         bgMusic.play().then(() => {
             isPlaying = true;
             musicBtn.textContent = "⏸️ Pause Music";
@@ -99,9 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Proposal Logic ---
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
-    const yesMessage = document.getElementById('yesMessage');
 
-    // "No" button runs away on hover!
+    // "No" button runs away!
     noBtn.addEventListener('mouseover', () => {
         const x = Math.random() * (window.innerWidth - 100);
         const y = Math.random() * (window.innerHeight - 50);
@@ -111,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.zIndex = '9999';
     });
 
-    // Also run away on touch (mobile)
     noBtn.addEventListener('touchstart', (e) => {
         e.preventDefault();
         const x = Math.random() * (window.innerWidth - 100);
@@ -122,18 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.zIndex = '9999';
     });
 
-    // "Yes" button celebration!
+    // "Yes" celebration!
     yesBtn.addEventListener('click', () => {
-        // Hide buttons
         document.querySelector('.proposal-buttons').style.display = 'none';
         document.querySelector('.proposal-text').style.display = 'none';
         document.querySelector('.proposal-question').style.display = 'none';
 
-        // Show celebration
+        const yesMessage = document.getElementById('yesMessage');
         yesMessage.classList.remove('hidden');
         yesMessage.style.display = 'block';
 
-        // Mega Fireworks!
         startFireworks();
         for (let i = 0; i < 50; i++) {
             setTimeout(() => createFirework(
@@ -142,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ), i * 100);
         }
 
-        // Vibrate
         if (navigator.vibrate) {
             navigator.vibrate([300, 100, 300, 100, 500]);
         }
@@ -162,16 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Fireworks System (Simple Particle System) ---
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-
+    // --- Fireworks System ---
     function startFireworks() {
+        if (fireworksStarted) return; // Prevent multiple intervals
+        fireworksStarted = true;
         setInterval(() => {
             const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height / 2; // Top half
+            const y = Math.random() * canvas.height / 2;
             createFirework(x, y);
         }, 800);
         animate();
@@ -197,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.decay = Math.random() * 0.02 + 0.01;
             this.gravity = 0.05;
         }
-
         draw() {
             ctx.save();
             ctx.globalAlpha = this.alpha;
@@ -207,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fill();
             ctx.restore();
         }
-
         update() {
             this.x += this.vx;
             this.y += this.vy;
@@ -218,9 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animate() {
         requestAnimationFrame(animate);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Trail effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         particles.forEach((p, index) => {
             if (p.alpha > 0) {
                 p.update();
@@ -231,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Resize Canvas
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
