@@ -82,13 +82,70 @@ document.addEventListener('DOMContentLoaded', () => {
         videoContainer.classList.remove('show');
         setTimeout(() => {
             videoContainer.classList.add('hidden');
+
+            // Show Proposal Screen!
+            const proposalScreen = document.getElementById('proposalScreen');
+            proposalScreen.classList.remove('hidden');
+            proposalScreen.style.display = 'flex';
         }, 1000);
 
-        // Resume BG Music (Optional)
+        // Resume BG Music
         bgMusic.play().then(() => {
             isPlaying = true;
             musicBtn.textContent = "⏸️ Pause Music";
         });
+    });
+
+    // --- Proposal Logic ---
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const yesMessage = document.getElementById('yesMessage');
+
+    // "No" button runs away on hover!
+    noBtn.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+        noBtn.style.zIndex = '9999';
+    });
+
+    // Also run away on touch (mobile)
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+        noBtn.style.zIndex = '9999';
+    });
+
+    // "Yes" button celebration!
+    yesBtn.addEventListener('click', () => {
+        // Hide buttons
+        document.querySelector('.proposal-buttons').style.display = 'none';
+        document.querySelector('.proposal-text').style.display = 'none';
+        document.querySelector('.proposal-question').style.display = 'none';
+
+        // Show celebration
+        yesMessage.classList.remove('hidden');
+        yesMessage.style.display = 'block';
+
+        // Mega Fireworks!
+        startFireworks();
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => createFirework(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight / 2
+            ), i * 100);
+        }
+
+        // Vibrate
+        if (navigator.vibrate) {
+            navigator.vibrate([300, 100, 300, 100, 500]);
+        }
     });
 
     // --- Music Button ---

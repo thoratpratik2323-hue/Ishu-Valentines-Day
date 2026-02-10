@@ -410,3 +410,163 @@ canvas {
     font-size: 1rem;
     cursor: pointer;
 }
+
+/* Proposal Screen */
+#proposalScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #1a0a2e 0%, #0d0015 100%);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.proposal-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.big-ring {
+    font-size: 8rem;
+    animation: ringBounce 2s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes ringBounce {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-30px) rotate(-10deg);
+    }
+
+    75% {
+        transform: translateY(-15px) rotate(10deg);
+    }
+}
+
+.proposal-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #ff80ab;
+    margin: 0;
+    text-shadow: 0 0 20px #ff80ab;
+}
+
+.proposal-question {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ffd700;
+    margin: 10px 0;
+    animation: glowQuestion 2s infinite alternate;
+}
+
+@keyframes glowQuestion {
+    from {
+        text-shadow: 0 0 10px #ffd700;
+    }
+
+    to {
+        text-shadow: 0 0 30px #ffd700, 0 0 60px #ffd700;
+    }
+}
+
+.proposal-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin: 20px auto;
+    max-width: 400px;
+    font-style: italic;
+}
+
+.proposal-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.yes-btn {
+    padding: 20px 50px;
+    font-size: 2rem;
+    background: linear-gradient(45deg, #ff4081, #f50057);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Dancing Script', cursive;
+    box-shadow: 0 5px 25px rgba(245, 0, 87, 0.5);
+    transition: transform 0.2s;
+    animation: yesPulse 1.5s infinite;
+}
+
+@keyframes yesPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 64, 129, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 64, 129, 0);
+    }
+}
+
+.yes-btn:hover {
+    transform: scale(1.15);
+}
+
+.no-btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+    background: transparent;
+    color: #999;
+    border: 1px solid #555;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.1s;
+    position: relative;
+}
+
+.celebration-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #ffd700;
+    animation: celebrateGlow 1s infinite alternate;
+    margin-top: 30px;
+}
+
+@keyframes celebrateGlow {
+    from {
+        text-shadow: 0 0 10px #ffd700;
+        transform: scale(1);
+    }
+
+    to {
+        text-shadow: 0 0 40px #ffd700, 0 0 80px #ff4081;
+        transform: scale(1.05);
+    }
+}
