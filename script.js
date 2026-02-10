@@ -35,12 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
             surpriseContent.classList.add('show');
 
             // Start Fireworks Loop
-            startFireworks();
+            // startFireworks(); // REMOVED: Wait for click
         }, 1500);
     });
 
     // --- Accept Button Logic ---
     acceptBtn.addEventListener('click', () => {
+        startFireworks(); // START HERE
+
         // Massive Fireworks Finale
         for (let i = 0; i < 30; i++) {
             setTimeout(() => createFirework(window.innerWidth / 2, window.innerHeight / 2), i * 100);
