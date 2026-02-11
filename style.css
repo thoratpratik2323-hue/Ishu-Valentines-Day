@@ -569,4 +569,4 @@ canvas {
         text-shadow: 0 0 40px #ffd700, 0 0 80px #ff4081;
         transform: scale(1.05);
     }
-}
+}/* Falling Hearts */ .heart-fall { position: fixed; top: -10vh; font-size: 1.5rem; color: #ff4d4d; animation: fall linear forwards; z-index: 50; pointer-events: none; text-shadow: 0 0 5px rgba(255, 107, 107, 0.8); } @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }

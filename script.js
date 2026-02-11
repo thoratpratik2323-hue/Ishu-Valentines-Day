@@ -84,6 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
             isPlaying = true;
             musicBtn.textContent = "⏸️ Pause Music";
         });
+
+        // Start Heart Rain
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.position = 'fixed'; // Explicitly set position just in case
+            heart.style.top = '-10vh';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 300);
+
     });
 
     // --- Proposal Logic ---
