@@ -4,95 +4,367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine? ❤️</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>For My Forever Valentine ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1000px;
+            font-family: 'Courier New', cursive;
+        }
+
+        #drag-container,
+        #spin-container {
+            position: relative;
+            display: flex;
+            margin: auto;
+            transform-style: preserve-3d;
+            transform: rotateX(-10deg);
+        }
+
+        #drag-container img,
+        #drag-container video {
+            transform-style: preserve-3d;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 200px;
+            font-size: 50px;
+            text-align: center;
+            box-shadow: 0 0 8px #fff;
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid white;
+        }
+
+        #drag-container p {
+            font-family: Serif;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(90deg);
+            color: #fff;
+            text-shadow: 0 0 10px #ff0040;
+            font-size: 5em;
+            white-space: nowrap;
+        }
+
+        #ground {
+            width: 900px;
+            height: 900px;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(90deg);
+            background: -webkit-radial-gradient(center center, farthest-side, #9993, transparent);
+        }
+
+        #music-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .center-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            color: red;
+            animation: beat 1s infinite;
+            z-index: 100;
+            pointer-events: none;
+            text-shadow: 0 0 20px red;
+        }
+
+        @keyframes beat {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        @keyframes spinRevert {
+            from {
+                transform: rotateY(360deg);
+            }
+
+            to {
+                transform: rotateY(0deg);
+            }
+        }
+
+        /* Floating Message */
+        .msg {
+            position: fixed;
+            bottom: 50px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px pink;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* Proposal Overlay */
+        #proposal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s;
+        }
+
+        #proposal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        h1 {
+            color: #fe2c55;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px red;
+        }
+
+        .btn-group {
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .yes {
+            background: #fe2c55;
+            color: white;
+            box-shadow: 0 0 15px #fe2c55;
+        }
+
+        .no {
+            background: #333;
+            color: white;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 5s infinite;
+        }
+
+        @keyframes rise {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-100vh);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Stars Background -->
-    <div id="stars"></div>
+    <div id="drag-container">
+        <div id="spin-container">
+            <!-- Your Images Here -->
+            <img src="p1.jpg" alt="">
+            <img src="p2.jpg" alt="">
+            <img src="p3.jpg" alt="">
+            <img src="p4.jpg" alt="">
+            <img src="p1.jpg" alt="">
+            <img src="p2.jpg" alt="">
 
-    <!-- Music Control -->
-    <button id="musicBtn">🎵 Play Music</button>
-    <audio id="bgMusic" loop>
-        <source src="song.webm" type="audio/webm">
-    </audio>
-
-    <!-- The Magical Box -->
-    <div class="gift-box" id="giftBox">
-        <div class="lid" id="boxLid">
-            <div class="lid-top"></div>
-            <div class="lid-bow"></div>
+            <!-- Text in 3D Space -->
+            <p>I Love You Ishu ❤️</p>
         </div>
-        <div class="box-body">
-            <div class="box-front">Tap to Open</div>
-            <div class="box-left"></div>
-            <div class="box-right"></div>
-            <div class="box-back"></div>
-        </div>
+        <div id="ground"></div>
     </div>
 
-    <!-- The Surprise (Hidden Initially) -->
-    <div class="surprise-content" id="surprise">
-        <h1 class="main-title">Happy Valentine's Day!</h1>
-        <h2 class="sub-title">To My Dearest Ishu ❤️</h2>
+    <div class="center-heart">❤️</div>
 
-        <div class="ring-container">
-            <div class="ring">
-                <div class="diamond">💎</div>
-                <div class="band"></div>
-            </div>
-        </div>
+    <div class="msg">✨ Drag to rotate • Click center for surprise ✨</div>
 
-        <p class="love-message">
-            "From distances apart to heart-to-heart,<br>
-            You are my forever Valentine.<br>
-            I promise to love you more each day!"
-        </p>
+    <div id="music-container"></div>
+    <audio id="bgm" src="song.webm" autoplay loop></audio>
 
-        <button id="acceptBtn">YES, I Will! 💍</button>
-    </div>
-
-    <!-- Fireworks Canvas -->
-    <canvas id="fireworks"></canvas>
-    <canvas id="flowerCanvas"></canvas>
-
-    <!-- Video Message Overlay -->
-    <div id="videoContainer" class="hidden">
-        <div class="video-box">
-            <video id="myVideo" controls>
-                <source src="video.mp4" type="video/mp4">
-            </video>
-            <button id="closeVideoBtn">Close & Return to Love ❤️</button>
-        </div>
-    </div>
-
-    <!-- Proposal Screen -->
-    <div id="proposalScreen" class="hidden">
-        <div class="proposal-content">
-            <div class="big-ring">💍</div>
-            <h1 class="proposal-title">Ishu...</h1>
-            <h2 class="proposal-question">Will You Be Mine Forever?</h2>
-            <p class="proposal-text">From our first talk to today,<br>every moment with you has been magical.<br>I want
-                to spend my whole life making you smile. ❤️</p>
-            <div class="proposal-buttons">
-                <button id="yesBtn" class="yes-btn">YES! 💍❤️</button>
-                <button id="noBtn" class="no-btn">No 😢</button>
-            </div>
-            <div id="yesMessage" class="hidden">
-                <h1 class="celebration-text">She Said YES! 🎉💍❤️</h1>
-                <p>Forever & Always</p>
-                <p>Pratik ❤️ Ishu</p>
-            </div>
+    <!-- PROPOSAL SCREEN -->
+    <div id="proposal">
+        <h1>Will You Be Mine Forever? 💍</h1>
+        <canvas id="flowerCanvas"></canvas>
+        <div class="btn-group">
+            <button class="yes" onclick="celebrate()">YES! ❤️</button>
+            <button class="no" onmouseover="runAway(this)">No 😢</button>
         </div>
     </div>
 
     <script src="flower.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // CONFIG
+        var radius = 240;
+        var autoRotate = true;
+        var rotateSpeed = -60;
+        var imgWidth = 120;
+        var imgHeight = 170;
+
+        // SETUP
+        setTimeout(init, 1000);
+
+        var odrag = document.getElementById('drag-container');
+        var ospin = document.getElementById('spin-container');
+        var aImg = ospin.getElementsByTagName('img');
+        var aVid = ospin.getElementsByTagName('video');
+        var aEle = [...aImg, ...aVid];
+
+        ospin.style.width = imgWidth + "px";
+        ospin.style.height = imgHeight + "px";
+
+        var ground = document.getElementById('ground');
+        ground.style.width = radius * 3 + "px";
+        ground.style.height = radius * 3 + "px";
+
+        function init(delayTime) {
+            for (var i = 0; i < aEle.length; i++) {
+                aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";
+                aEle[i].style.transition = "transform 1s";
+                aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";
+            }
+        }
+
+        function applyTranform(obj) {
+            if (tY > 180) tY = 180;
+            if (tY < 0) tY = 0;
+            obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";
+        }
+
+        function playSpin(yes) {
+            ospin.style.animationPlayState = (yes ? 'running' : 'paused');
+        }
+
+        var sX, sY, nX, nY, desX = 0,
+            desY = 0,
+            tX = 0,
+            tY = 10;
+
+        if (autoRotate) {
+            var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
+            ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
+        }
+
+        // DRAG LOGIC
+        document.onpointerdown = function (e) {
+            clearInterval(odrag.timer);
+            e = e || window.event;
+            var sX = e.clientX,
+                sY = e.clientY;
+
+            this.onpointermove = function (e) {
+                e = e || window.event;
+                var nX = e.clientX,
+                    nY = e.clientY;
+                desX = nX - sX;
+                desY = nY - sY;
+                tX += desX * 0.1;
+                tY += desY * 0.1;
+                applyTranform(odrag);
+                sX = nX;
+                sY = nY;
+            };
+
+            this.onpointerup = function (e) {
+                odrag.timer = setInterval(function () {
+                    desX *= 0.95;
+                    desY *= 0.95;
+                    tX += desX * 0.1;
+                    tY += desY * 0.1;
+                    applyTranform(odrag);
+                    playSpin(false);
+                    if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {
+                        clearInterval(odrag.timer);
+                        playSpin(true);
+                    }
+                }, 17);
+                this.onpointermove = this.onpointerup = null;
+            };
+            return false;
+        };
+
+        // CENTER HEART CLICK -> PROPOSAL
+        document.querySelector('.center-heart').addEventListener('click', () => {
+            document.getElementById('proposal').classList.add('visible');
+            startFlowerAnimation(); // Call flower.js
+        });
+
+        // Runaway NO Button
+        function runAway(btn) {
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+        }
+
+        function celebrate() {
+            alert("YAY! She said YES! ❤️💍"); // Simple alert for now, can be fancy
+            // Fireworks or hearts can go here
+            location.reload();
+        }
+
+        // Music
+        document.body.addEventListener('click', () => {
+            document.getElementById('bgm').play();
+        }, { once: true });
+
+    </script>
 </body>
 
 </html>
