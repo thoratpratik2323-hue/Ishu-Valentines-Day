@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Forever Valentine ❤️</title>
+    <title>For My Love, Ishu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Sacramento&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,357 +15,416 @@
         }
 
         body {
-            background: #000;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            height: 100vh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            perspective: 1000px;
-            font-family: 'Courier New', cursive;
+            font-family: 'Dancing Script', cursive;
         }
 
-        #drag-container,
-        #spin-container {
-            position: relative;
-            display: flex;
-            margin: auto;
-            transform-style: preserve-3d;
-            transform: rotateX(-10deg);
-        }
-
-        #drag-container img,
-        #drag-container video {
-            transform-style: preserve-3d;
+        /* --- Floating Hearts Background --- */
+        .bg-heart {
             position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            line-height: 200px;
-            font-size: 50px;
-            text-align: center;
-            box-shadow: 0 0 8px #fff;
-            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
-            object-fit: cover;
-            border-radius: 10px;
-            border: 3px solid white;
-        }
-
-        #drag-container p {
-            font-family: Serif;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(90deg);
-            color: #fff;
-            text-shadow: 0 0 10px #ff0040;
-            font-size: 5em;
-            white-space: nowrap;
-        }
-
-        #ground {
-            width: 900px;
-            height: 900px;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(90deg);
-            background: -webkit-radial-gradient(center center, farthest-side, #9993, transparent);
-        }
-
-        #music-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .center-heart {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 5rem;
-            color: red;
-            animation: beat 1s infinite;
-            z-index: 100;
-            pointer-events: none;
-            text-shadow: 0 0 20px red;
-        }
-
-        @keyframes beat {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotateY(0deg);
-            }
-
-            to {
-                transform: rotateY(360deg);
-            }
-        }
-
-        @keyframes spinRevert {
-            from {
-                transform: rotateY(360deg);
-            }
-
-            to {
-                transform: rotateY(0deg);
-            }
-        }
-
-        /* Floating Message */
-        .msg {
-            position: fixed;
-            bottom: 50px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px pink;
-            opacity: 0.8;
+            top: -10vh;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            animation: fall linear forwards;
+            z-index: 0;
             pointer-events: none;
         }
 
-        /* Proposal Overlay */
-        #proposal {
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* --- STEP 1: PULSING HEART --- */
+        #landing {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: black;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
             transition: opacity 1s;
         }
 
-        #proposal.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        h1 {
-            color: #fe2c55;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px red;
-        }
-
-        .btn-group {
-            margin-top: 30px;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            margin: 10px;
+        .giant-heart {
+            font-size: 8rem;
+            color: #ff3366;
             cursor: pointer;
-            border: none;
-            border-radius: 50px;
-            transition: 0.3s;
+            filter: drop-shadow(0 0 20px #ff3366);
+            animation: heartbeat 1.2s infinite;
+            transition: transform 0.3s;
         }
 
-        .yes {
-            background: #fe2c55;
+        .giant-heart:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.3);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.15);
+            }
+
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        .tap-text {
             color: white;
-            box-shadow: 0 0 15px #fe2c55;
+            font-size: 2rem;
+            margin-top: 20px;
+            animation: fadeBlink 2s infinite;
         }
 
-        .no {
-            background: #333;
-            color: white;
+        @keyframes fadeBlink {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
-        /* Floating particles */
-        .particle {
+        /* --- STEP 2: ENVELOPE --- */
+        #envelope-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            perspective: 1000px;
+            display: none;
+            /* Hidden initially */
+            z-index: 50;
+            cursor: pointer;
+        }
+
+        .envelope {
+            width: 100%;
+            height: 100%;
+            background: #ff4757;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #ff6b81;
+            transform-origin: top;
+            transition: transform 0.5s 0.5s;
+            z-index: 2;
+        }
+
+        .card {
             position: absolute;
             background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: rise 5s infinite;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            transition: transform 1s 1s, z-index 0s 1s;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        @keyframes rise {
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope.open .card {
+            transform: translateY(-150px) scale(1.2);
+            z-index: 5;
+        }
+
+        /* --- STEP 3: FINAL CONTENT --- */
+        #final-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 60;
+        }
+
+        .photo-gallery {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .photo {
+            position: absolute;
+            width: 150px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: rotate(var(--r));
+            opacity: 0;
+            animation: popIn 0.8s forwards;
+            animation-delay: var(--d);
+        }
+
+        @keyframes popIn {
             from {
-                transform: translateY(0);
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
             }
 
             to {
-                transform: translateY(-100vh);
+                transform: scale(1) rotate(var(--r));
+                opacity: 1;
             }
+        }
+
+        .main-message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 51, 102, 0.3);
+            z-index: 70;
+            max-width: 90%;
+            border: 2px solid #ff3366;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #ff3366;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            font-family: 'Sacramento', cursive;
+        }
+
+        .btn-group button {
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            font-family: 'Dancing Script', cursive;
+            transition: transform 0.2s;
+        }
+
+        .btn-yes {
+            background: #ff3366;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+        }
+
+        .btn-no {
+            background: #ccc;
+            color: #333;
+            position: relative;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 
 <body>
 
-    <div id="drag-container">
-        <div id="spin-container">
-            <!-- Your Images Here -->
-            <img src="p1.jpg" alt="">
-            <img src="p2.jpg" alt="">
-            <img src="p3.jpg" alt="">
-            <img src="p4.jpg" alt="">
-            <img src="p1.jpg" alt="">
-            <img src="p2.jpg" alt="">
+    <!-- BGM -->
+    <audio id="bgm" src="song.webm" loop></audio>
 
-            <!-- Text in 3D Space -->
-            <p>I Love You Ishu ❤️</p>
-        </div>
-        <div id="ground"></div>
+    <!-- STEP 1: LANDING -->
+    <div id="landing">
+        <div class="giant-heart" onclick="startJourney()">❤️</div>
+        <div class="tap-text">Tap to Open My Heart</div>
     </div>
 
-    <div class="center-heart">❤️</div>
-
-    <div class="msg">✨ Drag to rotate • Click center for surprise ✨</div>
-
-    <div id="music-container"></div>
-    <audio id="bgm" src="song.webm" autoplay loop></audio>
-
-    <!-- PROPOSAL SCREEN -->
-    <div id="proposal">
-        <h1>Will You Be Mine Forever? 💍</h1>
-        <canvas id="flowerCanvas"></canvas>
-        <div class="btn-group">
-            <button class="yes" onclick="celebrate()">YES! ❤️</button>
-            <button class="no" onmouseover="runAway(this)">No 😢</button>
+    <!-- STEP 2: ENVELOPE -->
+    <div id="envelope-container" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="card">
+                <h2>My Dearest Ishu...</h2>
+                <p>Click me to read ❤️</p>
+            </div>
         </div>
     </div>
 
-    <script src="flower.js"></script>
+    <!-- STEP 3: FINAL PROPOSAL -->
+    <div id="final-content">
+        <div class="photo-gallery">
+            <!-- Using Placeholders, user can replace -->
+            <img src="p1.jpg" class="photo" style="top: 10%; left: 10%; --r: -10deg; --d: 0.5s;">
+            <img src="p2.jpg" class="photo" style="top: 15%; right: 10%; --r: 10deg; --d: 1s;">
+            <img src="p3.jpg" class="photo" style="bottom: 15%; left: 15%; --r: -5deg; --d: 1.5s;">
+            <img src="p4.jpg" class="photo" style="bottom: 10%; right: 15%; --r: 8deg; --d: 2s;">
+        </div>
+
+        <div class="main-message">
+            <h1>Will You Be My Valentine?</h1>
+            <p>
+                From the moment I met you,<br>
+                life became a beautiful melody.<br>
+                You are my smile, my heart, my everything.<br>
+                I want to make every moment magical for you.<br>
+                <br>
+                <strong>Ishu, will you be mine forever?</strong>
+            </p>
+            <div class="btn-group">
+                <button class="btn-yes" onclick="acceptProposal()">YES, Always! 💍</button>
+                <button class="btn-no" onmouseover="runAway(this)">No 😢</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CANVAS FOR CONFETTI/FLOWERS -->
+    <canvas id="confetti" style="position:fixed;top:0;left:0;pointer-events:none;z-index:999;"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        // CONFIG
-        var radius = 240;
-        var autoRotate = true;
-        var rotateSpeed = -60;
-        var imgWidth = 120;
-        var imgHeight = 170;
+        // --- BACKGROUND HEARTS ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('bg-heart');
+            heart.innerHTML = Math.random() > 0.5 ? '❤️' : '🌸';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+        setInterval(createHeart, 400);
 
-        // SETUP
-        setTimeout(init, 1000);
+        // --- INTERACTION LOGIC ---
+        function startJourney() {
+            const bgm = document.getElementById('bgm');
+            bgm.play().catch(e => console.log("Audio requires interaction first"));
 
-        var odrag = document.getElementById('drag-container');
-        var ospin = document.getElementById('spin-container');
-        var aImg = ospin.getElementsByTagName('img');
-        var aVid = ospin.getElementsByTagName('video');
-        var aEle = [...aImg, ...aVid];
-
-        ospin.style.width = imgWidth + "px";
-        ospin.style.height = imgHeight + "px";
-
-        var ground = document.getElementById('ground');
-        ground.style.width = radius * 3 + "px";
-        ground.style.height = radius * 3 + "px";
-
-        function init(delayTime) {
-            for (var i = 0; i < aEle.length; i++) {
-                aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";
-                aEle[i].style.transition = "transform 1s";
-                aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";
-            }
+            document.getElementById('landing').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('landing').style.display = 'none';
+                document.getElementById('envelope-container').style.display = 'flex';
+                document.body.style.background = "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)"; // Softer bg for letter
+            }, 1000);
         }
 
-        function applyTranform(obj) {
-            if (tY > 180) tY = 180;
-            if (tY < 0) tY = 0;
-            obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";
+        function openEnvelope() {
+            document.querySelector('.envelope').classList.add('open');
+            setTimeout(() => {
+                // Transition to Final
+                document.getElementById('envelope-container').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('envelope-container').style.display = 'none';
+                    document.getElementById('final-content').style.display = 'flex';
+                    document.body.style.background = "radial-gradient(circle, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)"; // Romantic bg
+                    fireConfetti();
+                }, 1000);
+            }, 1500);
         }
 
-        function playSpin(yes) {
-            ospin.style.animationPlayState = (yes ? 'running' : 'paused');
-        }
-
-        var sX, sY, nX, nY, desX = 0,
-            desY = 0,
-            tX = 0,
-            tY = 10;
-
-        if (autoRotate) {
-            var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
-            ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
-        }
-
-        // DRAG LOGIC
-        document.onpointerdown = function (e) {
-            clearInterval(odrag.timer);
-            e = e || window.event;
-            var sX = e.clientX,
-                sY = e.clientY;
-
-            this.onpointermove = function (e) {
-                e = e || window.event;
-                var nX = e.clientX,
-                    nY = e.clientY;
-                desX = nX - sX;
-                desY = nY - sY;
-                tX += desX * 0.1;
-                tY += desY * 0.1;
-                applyTranform(odrag);
-                sX = nX;
-                sY = nY;
-            };
-
-            this.onpointerup = function (e) {
-                odrag.timer = setInterval(function () {
-                    desX *= 0.95;
-                    desY *= 0.95;
-                    tX += desX * 0.1;
-                    tY += desY * 0.1;
-                    applyTranform(odrag);
-                    playSpin(false);
-                    if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {
-                        clearInterval(odrag.timer);
-                        playSpin(true);
-                    }
-                }, 17);
-                this.onpointermove = this.onpointerup = null;
-            };
-            return false;
-        };
-
-        // CENTER HEART CLICK -> PROPOSAL
-        document.querySelector('.center-heart').addEventListener('click', () => {
-            document.getElementById('proposal').classList.add('visible');
-            startFlowerAnimation(); // Call flower.js
-        });
-
-        // Runaway NO Button
         function runAway(btn) {
             btn.style.position = 'fixed';
             btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
             btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
         }
 
-        function celebrate() {
-            alert("YAY! She said YES! ❤️💍"); // Simple alert for now, can be fancy
-            // Fireworks or hearts can go here
-            location.reload();
+        function acceptProposal() {
+            // Massive Celebration
+            const duration = 5 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff3366', '#ffbedb']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff3366', '#ffbedb']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            document.querySelector('.btn-yes').textContent = "I Love You Too! ❤️";
+            document.querySelector('h1').textContent = "YAY! She Said YES! 💏";
+            document.querySelector('p').innerHTML = "This is the best day of my life!<br>I promise to keep you happy forever and ever.<br>❤️ Pratik & Ishu ❤️";
+
+            // Play fireworks sound or happy music if available
         }
 
-        // Music
-        document.body.addEventListener('click', () => {
-            document.getElementById('bgm').play();
-        }, { once: true });
-
+        function fireConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
     </script>
 </body>
 
